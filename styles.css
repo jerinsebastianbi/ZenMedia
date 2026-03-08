@@ -70,6 +70,14 @@ img {
     text-align: center;
 }
 
+.mt-medium {
+    margin-top: 3rem;
+}
+
+.mt-large {
+    margin-top: 5rem;
+}
+
 .fade-up {
     opacity: 0;
     transform: translateY(30px);
@@ -300,8 +308,12 @@ img {
 
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
+}
+
+.hidden-item {
+    display: none !important;
 }
 
 .gallery-item {

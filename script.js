@@ -81,4 +81,25 @@ document.addEventListener('DOMContentLoaded', () => {
             navbar.style.boxShadow = 'none';
         }
     });
+
+    // View More Button Logic
+    const viewMoreBtn = document.getElementById('view-more-btn');
+    if (viewMoreBtn) {
+        viewMoreBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const hiddenItems = document.querySelectorAll('.hidden-item');
+            hiddenItems.forEach(item => {
+                item.classList.remove('hidden-item');
+                // Observe new items for fade effect
+                if (window.innerWidth < 768) {
+                    item.classList.add('fade-up');
+                    observer.observe(item);
+                } else {
+                    item.classList.add('visible'); // If they are not fading, just make visible, or let them fade
+                    observer.observe(item);
+                }
+            });
+            viewMoreBtn.parentElement.style.display = 'none';
+        });
+    }
 });
