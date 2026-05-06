@@ -4,178 +4,977 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ZenMedia - Professional Wedding and Event Photography">
-    <title>ZenMedia | Photography & Media Works</title>
+    <meta name="description" content="ZenMedia - Premium Wedding and Event Photography">
+    <title>ZenMedia | Premium Photography & Media Works</title>
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Urbanist:wght@300;400;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        :root {
+            --clr-bg: #050505;
+            --clr-surface: #111111;
+            --clr-surface-light: #1a1a1a;
+            --clr-text: #ffffff;
+            --clr-text-muted: #a1a1aa;
+            --clr-accent: #d4af37;
+            /* Gold accent */
+            --clr-accent-hover: #b5952f;
+
+            --font-sans: 'Inter', sans-serif;
+            --font-serif: 'Playfair Display', serif;
+
+            --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            --radius-lg: 24px;
+            --radius-md: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--clr-bg);
+            color: var(--clr-text);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-serif);
+            font-weight: 400;
+            line-height: 1.2;
+            color: var(--clr-text);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Utilities */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .section {
+            padding: 8rem 0;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Fade Up Animation */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 0;
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-sans);
+            font-size: 1.4rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #fff;
+        }
+
+        .logo span {
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--clr-text-muted);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background: var(--clr-accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+            transform: scale(1.05);
+            animation: kenburns 20s infinite alternate;
+        }
+
+        @keyframes kenburns {
+            0% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1.15) translate(-10px, -10px);
+            }
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, var(--clr-bg) 0%, rgba(5, 5, 5, 0.4) 100%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 900px;
+            padding: 0 5%;
+        }
+
+        .hero-title {
+            font-size: clamp(3.5rem, 8vw, 6rem);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff, #a1a1aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: heroIn 1s cubic-bezier(0.25, 1, 0.5, 1) forwards 0.3s;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--clr-text-muted);
+            margin-bottom: 3rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: heroIn 1s cubic-bezier(0.25, 1, 0.5, 1) forwards 0.5s;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 50px;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: heroIn 1s cubic-bezier(0.25, 1, 0.5, 1) forwards 0.7s;
+        }
+
+        .btn-primary {
+            background: var(--clr-accent);
+            color: var(--clr-bg);
+        }
+
+        .btn-primary:hover {
+            background: var(--clr-accent-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+        }
+
+        @keyframes heroIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Services */
+        .section-header {
+            margin-bottom: 5rem;
+            text-align: center;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--clr-text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--clr-surface);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 3rem 2rem;
+            border-radius: var(--radius-lg);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(212, 175, 55, 0.1), transparent 70%);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.1);
+            background: var(--clr-surface-light);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .service-card h3::before {
+            content: '';
+            display: block;
+            width: 30px;
+            height: 1px;
+            background: var(--clr-accent);
+        }
+
+        .service-card p {
+            color: var(--clr-text-muted);
+            font-weight: 300;
+        }
+
+        /* Portfolio / Carousel */
+        .carousel-container {
+            position: relative;
+            max-width: 1200px; /* Slightly increased */
+            margin: 0 auto;
+            overflow: visible;
+            padding: 4rem 0;
+            perspective: 1500px; /* Enhanced perspective */
+        }
+
+        .carousel-track {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 550px; /* Increased height */
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            cursor: pointer;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            width: 400px; /* Increased slide width */
+            height: 500px; /* Increased slide height */
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            opacity: 0;
+            z-index: 0;
+            user-select: none;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+            cursor: pointer;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+            z-index: 10;
+            transform: translateX(0) translateZ(100px) rotateY(0deg);
+            pointer-events: auto;
+        }
+
+        .carousel-slide.prev {
+            opacity: 0.8;
+            z-index: 5;
+            transform: translateX(-220px) translateZ(0px) rotateY(45deg);
+            pointer-events: auto;
+        }
+
+        .carousel-slide.next {
+            opacity: 0.8;
+            z-index: 5;
+            transform: translateX(220px) translateZ(0px) rotateY(-45deg);
+            pointer-events: auto;
+        }
+
+        /* Far slides */
+        .carousel-slide.far-prev {
+            opacity: 0.4;
+            z-index: 1;
+            transform: translateX(-350px) translateZ(-100px) rotateY(55deg);
+        }
+
+        .carousel-slide.far-next {
+            opacity: 0.4;
+            z-index: 1;
+            transform: translateX(350px) translateZ(-100px) rotateY(-55deg);
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Reflection effect like old iTunes */
+            -webkit-box-reflect: below 10px linear-gradient(transparent, transparent 70%, rgba(255,255,255,0.1));
+        }
+
+        .slide-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 60%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .carousel-slide.active:hover .slide-overlay {
+            opacity: 1;
+        }
+
+        .slide-overlay h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.2rem;
+            transform: translateY(10px);
+            transition: var(--transition);
+        }
+
+        .slide-overlay p {
+            color: var(--clr-accent);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transform: translateY(10px);
+            transition: var(--transition);
+        }
+
+        .carousel-slide.active:hover .slide-overlay h3,
+        .carousel-slide.active:hover .slide-overlay p {
+            transform: translateY(0);
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 6rem;
+        }
+
+        .carousel-btn {
+            display: none; /* Hide buttons as per request */
+        }
+
+        .carousel-indicators {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .indicator.active {
+            background: var(--clr-accent);
+            transform: scale(1.5);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--clr-surface) 0%, var(--clr-bg) 100%);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 5rem 3rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-btn-outline {
+            background: transparent;
+            border: 1px solid var(--clr-accent);
+            color: var(--clr-accent);
+        }
+
+        .cta-btn-outline:hover {
+            background: var(--clr-accent);
+            color: var(--clr-bg);
+            transform: translateY(-4px);
+        }
+
+        /* Footer */
+        footer {
+            padding: 5rem 0 2rem;
+            background: var(--clr-bg);
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-brand p {
+            color: var(--clr-text-muted);
+            margin-top: 1rem;
+            max-width: 300px;
+            font-weight: 300;
+        }
+
+        .footer-social h4 {
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-links a {
+            color: var(--clr-text-muted);
+            font-size: 1.1rem;
+        }
+
+        .social-links a:hover {
+            color: var(--clr-accent);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.85rem;
+        }
+
+        /* WhatsApp Bubble */
+        .whatsapp-bubble {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .whatsapp-bubble:hover {
+            transform: scale(1.1) rotate(5deg);
+            background-color: #1ebe58;
+            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
+        }
+
+        .whatsapp-bubble svg {
+            width: 35px;
+            height: 35px;
+            fill: currentColor;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .carousel-slide {
+                min-width: calc(50% - 1rem);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .carousel-slide {
+                min-width: 100%;
+            }
+
+            .section {
+                padding: 5rem 0;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <nav class="navbar is-hidden">
-        <div class="nav-container">
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
             <a href="#" class="logo">Zen<span>Media</span></a>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#services">Services</a></li>
-                <li><a href="#portfolio">Our Work</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <button class="menu-btn" aria-label="Toggle Menu">
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </button>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <header id="home" class="hero">
         <div class="hero-bg">
-            <img src="assets/wedding_hero.png" alt="Couple laughing in gorgeous sunset landscape">
-            <div class="overlay"></div>
+            <img src="assets/wedding_hero.png" alt="Gorgeous Wedding Sunset Background">
         </div>
-        <div class="hero-content fade-in">
+        <div class="hero-content">
             <h1 class="hero-title">Timeless Moments.</h1>
-            <p class="hero-subtitle">Specializing in Premium Wedding Photography, Baptism, and Event Coverage.</p>
-            <a href="#portfolio" class="cta-btn">View Our Portfolio</a>
+            <p class="hero-subtitle">Premium Wedding, Baptism, and Event Storytelling.</p>
+            <a href="#portfolio" class="btn btn-primary">Discover Our Work</a>
         </div>
     </header>
 
     <!-- Services Section -->
     <section id="services" class="section">
+        <div class="container">
+            <div class="section-header fade-up">
+                <h2>Our Expertise</h2>
+                <p>Capturing raw emotion, beautiful lighting, and perfect details. We curate visual stories that last
+                    for generations.</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card fade-up" style="transition-delay: 0.1s;">
+                    <h3>Wedding</h3>
+                    <p>Cinematic, candid, and highly emotional coverage of your special day, creating heirloom quality
+                        memories.</p>
+                </div>
+                <div class="service-card fade-up" style="transition-delay: 0.2s;">
+                    <h3>Engagement</h3>
+                    <p>Beautiful, intimate storytelling of the moment you say yes and begin your journey together.</p>
+                </div>
+                <div class="service-card fade-up" style="transition-delay: 0.3s;">
+                    <h3>Baptism</h3>
+                    <p>Soft, warm, and joyful documentation honoring your little one's big spiritual stepping stone.</p>
+                </div>
+                <div class="service-card fade-up" style="transition-delay: 0.4s;">
+                    <h3>House Warming</h3>
+                    <p>Capturing the warmth, joy, and profound blessings shared during your new home celebration.</p>
+                </div>
+                <div class="service-card fade-up" style="transition-delay: 0.5s;">
+                    <h3>Funeral</h3>
+                    <p>Respectful, subtle, and incredibly heartfelt documentation to honor and remember loved ones.</p>
+                </div>
+                <div class="service-card fade-up" style="transition-delay: 0.6s;">
+                    <h3>YouTube Live</h3>
+                    <p>Professional multi-camera, high-definition live streaming services for sharing events globally.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Carousel Section -->
+    <section id="portfolio" class="section"
+        style="background: #080808; border-top: 1px solid rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.02);">
         <div class="container section-header fade-up">
-            <h2>Our Expertise</h2>
-            <p>From the biggest daus of your life to everyday celebrations, we cover it all.</p>
+            <h2>Featured Visuals</h2>
+            <p>A glimpse into our visual storytelling. Swipe through our carefully curated moments of joy, love, and
+                connection.</p>
         </div>
-        <div class="container grid-container">
-            <div class="service-card glass-card fade-up delay-1">
-                <h3>Wedding</h3>
-                <p>Cinematic, candid, and emotional coverage of your special day, creating heirloom memories.</p>
+
+        <div class="carousel-container fade-up" id="carousel">
+            <div class="carousel-track" id="track">
+
+                <div class="carousel-slide">
+                    <img src="assets/wedding_hero.png" alt="The Vows">
+                    <div class="slide-overlay">
+                        <p>Wedding</p>
+                        <h3>The Vows</h3>
+                    </div>
+                </div>
+
+                <div class="carousel-slide">
+                    <img src="assets/wedding_gallery.png" alt="The Details">
+                    <div class="slide-overlay">
+                        <p>Details</p>
+                        <h3>Rings & Lace</h3>
+                    </div>
+                </div>
+
+                <div class="carousel-slide">
+                    <img src="assets/wedding_hero.png" alt="Golden Hour">
+                    <div class="slide-overlay">
+                        <p>Portraits</p>
+                        <h3>Golden Hour</h3>
+                    </div>
+                </div>
+
+                <div class="carousel-slide">
+                    <img src="assets/wedding_gallery.png" alt="The Reception">
+                    <div class="slide-overlay">
+                        <p>Reception</p>
+                        <h3>First Dance</h3>
+                    </div>
+                </div>
+
+                <div class="carousel-slide">
+                    <img src="assets/wedding_hero.png" alt="Joyous Moments">
+                    <div class="slide-overlay">
+                        <p>Ceremony</p>
+                        <h3>Joyous Tears</h3>
+                    </div>
+                </div>
+
+                <div class="carousel-slide">
+                    <img src="assets/wedding_gallery.png" alt="The Kiss">
+                    <div class="slide-overlay">
+                        <p>Wedding</p>
+                        <h3>The Kiss</h3>
+                    </div>
+                </div>
+
+                <div class="carousel-slide">
+                    <img src="assets/wedding_hero.png" alt="Night Magic">
+                    <div class="slide-overlay">
+                        <p>Night</p>
+                        <h3>Night Magic</h3>
+                    </div>
+                </div>
+
+                <div class="carousel-slide">
+                    <img src="assets/wedding_gallery.png" alt="Celebration">
+                    <div class="slide-overlay">
+                        <p>Party</p>
+                        <h3>Grand Exit</h3>
+                    </div>
+                </div>
+
             </div>
-            <div class="service-card glass-card fade-up delay-2">
-                <h3>Engagement</h3>
-                <p>Beautiful storytelling of the moment you say yes and start your journey together.</p>
-            </div>
-            <div class="service-card glass-card fade-up delay-3">
-                <h3>Baptism</h3>
-                <p>Soft, warm, and joyful documentations of your little one's big stepping stone.</p>
-            </div>
-            <div class="service-card glass-card fade-up delay-1 mt-medium">
-                <h3>House Warming</h3>
-                <p>Capturing the warmth, joy, and blessings of your new home celebration.</p>
-            </div>
-            <div class="service-card glass-card fade-up delay-2 mt-medium">
-                <h3>Funeral</h3>
-                <p>Respectful, subtle, and heartfelt documentation to honor and remember your loved ones.</p>
-            </div>
-            <div class="service-card glass-card fade-up delay-3 mt-medium">
-                <h3>YouTube Live</h3>
-                <p>Professional multi-camera live streaming services for any of your events.</p>
+
+            <!-- Carousel Controls -->
+            <div class="carousel-controls">
+                <button class="carousel-btn" id="prevBtn" aria-label="Previous Slide">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                </button>
+                <div class="carousel-indicators" id="indicators">
+                    <!-- Dynamic Indicators Generated by JS -->
+                </div>
+                <button class="carousel-btn" id="nextBtn" aria-label="Next Slide">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 18l6-6-6-6" />
+                    </svg>
+                </button>
             </div>
         </div>
     </section>
 
-    <!-- Portfolio Showcase -->
-    <section id="portfolio" class="section bg-darker">
-        <div class="container section-header fade-up">
-            <h2>Featured Works</h2>
-            <p>A glimpse into our visual storytelling. We prioritize capturing the genuine emotions.</p>
-        </div>
-
-        <div class="container gallery-container">
-            <!-- Wedding Showcase -->
-            <div class="gallery-category fade-up">
-                <div class="gallery-header">
-                    <h3>Wedding Stories</h3>
-                    <div class="line"></div>
-                </div>
-                <div class="gallery-grid">
-                    <div class="gallery-item large">
-                        <img src="assets/wedding_hero.png" alt="Wedding Hero">
-                        <div class="item-overlay">
-                            <span>The Vows</span>
-                        </div>
-                    </div>
-                    <div class="gallery-item large">
-                        <img src="assets/wedding_gallery.png" alt="Wedding Details">
-                        <div class="item-overlay">
-                            <span>The Details</span>
-                        </div>
-                    </div>
-                    <div class="gallery-item large hidden-item">
-                        <img src="assets/wedding_hero.png" alt="Wedding Moments">
-                        <div class="item-overlay">
-                            <span>Joyous Moments</span>
-                        </div>
-                    </div>
-                    <div class="gallery-item large hidden-item">
-                        <img src="assets/wedding_gallery.png" alt="Wedding Reception">
-                        <div class="item-overlay">
-                            <span>The Reception</span>
-                        </div>
-                    </div>
-                    <div class="gallery-item large hidden-item">
-                        <img src="assets/wedding_hero.png" alt="Wedding Portraits">
-                        <div class="item-overlay">
-                            <span>Golden Hour</span>
-                        </div>
-                    </div>
-                    <div class="gallery-item large hidden-item">
-                        <img src="assets/wedding_gallery.png" alt="Wedding Party">
-                        <div class="item-overlay">
-                            <span>The Party</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center mt-large">
-                    <a href="#" id="view-more-btn" class="cta-btn secondary-btn">View More</a>
-                </div>
+    <!-- Call to Action -->
+    <section class="cta-section section text-center" id="contact">
+        <div class="container">
+            <div class="cta-content fade-up">
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Ready to frame your story?</h2>
+                <p style="color: var(--clr-text-muted); margin-bottom: 2.5rem; font-size: 1.1rem;">Reach out today to
+                    discuss availability, customized packages, and how we can best document your beautiful moments.</p>
+                <a href="https://wa.me/919846394399?text=Hello, I would like to know more about your wedding photography packages. Kindly call me back."
+                    target="_blank" class="btn cta-btn-outline">Start a Conversation</a>
             </div>
         </div>
     </section>
-    <!-- Footer call to action -->
-    <section class="cta-section section text-center fade-up" id="contact">
-        <div class="container cta-glass">
-            <h2>Ready to capture your story?</h2>
-            <p>Let's create something beautiful together. Reach out for availability and pricing.</p>
-            <a href="https://wa.me/919846394399?text=Hello, I would like to know more about your wedding photography packages. Kindly call me back."
-                target="_blank" class="cta-btn secondary-btn">WhatsApp Chat</a>
-        </div>
-    </section>
 
+    <!-- Footer -->
     <footer>
-        <div class="container footer-content">
-            <div class="footer-brand">
-                <a href="#" class="logo">Zen<span>Media</span></a>
-                <p>Your premium photography partner.</p>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="#" class="logo">Zen<span>Media</span></a>
+                    <p>Your premium photography partner, specializing in capturing emotion and freezing time creatively.
+                    </p>
+                </div>
+                <div class="footer-social">
+                    <h4 style="font-size: 1rem; color: #fff;">Connect</h4>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/zenweddingstories" target="_blank">Instagram</a>
+                        <a href="https://www.facebook.com/zenmedia" target="_blank">Facebook</a>
+                        <a href="https://www.youtube.com/@zenweddingstories/videos" target="_blank">YouTube</a>
+                    </div>
+                </div>
             </div>
-            <div class="footer-links">
-                <a href="https://www.instagram.com/zenweddingstories">Instagram</a>
-                <a href="https://www.facebook.com/zenmedia">Facebook</a>
-                <a href="https://www.youtube.com/@zenweddingstories/videos">YouTube</a>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ZenMedia Photography. All Rights Reserved.</p>
             </div>
-        </div>
-        <div class="copyright">
-            <p>&copy; 2026 ZenMedia Photography. All Rights Reserved.</p>
         </div>
     </footer>
 
-    <!-- Floating WhatsApp Button -->
+    <!-- Floating WhatsApp -->
     <a href="https://wa.me/919846394399?text=Hello, I would like to know more about your wedding photography packages. Kindly call me back."
-        class="floating-whatsapp" target="_blank" aria-label="Chat on WhatsApp">
-        <svg xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-            <path fill="currentColor"
+        class="whatsapp-bubble" target="_blank" aria-label="Chat on WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <path
                 d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 0.9-6.9-0.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-0.2-6.9-0.2-10.6-0.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z" />
         </svg>
     </a>
 
-    <script src="script.js"></script>
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Navbar Scroll Effect
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // Intersection Observer for Animation (Fade Up)
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+
+            // Carousel Logic (iTunes Style)
+            const slides = Array.from(document.querySelectorAll('.carousel-slide'));
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const indicatorsContainer = document.getElementById('indicators');
+
+            let currentIndex = 2; // Start with the middle one active (assuming 5 slides)
+            if (slides.length <= 2) currentIndex = 0;
+
+            // Setup indicators
+            slides.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.classList.add('indicator');
+                if (i === currentIndex) dot.classList.add('active');
+                dot.addEventListener('click', () => {
+                    currentIndex = i;
+                    updateCarousel();
+                });
+                indicatorsContainer.appendChild(dot);
+            });
+
+            const updateCarousel = () => {
+                slides.forEach((slide, index) => {
+                    slide.classList.remove('active', 'prev', 'next', 'far-prev', 'far-next');
+
+                    if (index === currentIndex) {
+                        slide.classList.add('active');
+                    } else if (index === currentIndex - 1) {
+                        slide.classList.add('prev');
+                    } else if (index === currentIndex + 1) {
+                        slide.classList.add('next');
+                    } else if (index < currentIndex) {
+                        slide.classList.add('far-prev');
+                    } else if (index > currentIndex) {
+                        slide.classList.add('far-next');
+                    }
+                });
+
+                document.querySelectorAll('.indicator').forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+            };
+
+            // Click on slides to navigate
+            slides.forEach((slide, index) => {
+                slide.addEventListener('click', () => {
+                    if (index !== currentIndex) {
+                        currentIndex = index;
+                        updateCarousel();
+                    }
+                });
+            });
+
+            // Touch/Mouse Swipe support
+            let startX = 0;
+            const track = document.getElementById('track');
+
+            track.addEventListener('mousedown', e => startX = e.pageX);
+            track.addEventListener('mouseup', e => {
+                const diff = e.pageX - startX;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0 && currentIndex > 0) currentIndex--;
+                    else if (diff < 0 && currentIndex < slides.length - 1) currentIndex++;
+                    updateCarousel();
+                }
+            });
+
+            track.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+            track.addEventListener('touchend', e => {
+                const diff = e.changedTouches[0].clientX - startX;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0 && currentIndex > 0) currentIndex--;
+                    else if (diff < 0 && currentIndex < slides.length - 1) currentIndex++;
+                    updateCarousel();
+                }
+            });
+
+            // Keyboard navigation
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft' && currentIndex > 0) {
+                    currentIndex--;
+                    updateCarousel();
+                } else if (e.key === 'ArrowRight' && currentIndex < slides.length - 1) {
+                    currentIndex++;
+                    updateCarousel();
+                }
+            });
+
+            // Initialize
+            updateCarousel();
+        });
+    </script>
 </body>
 
 </html>
